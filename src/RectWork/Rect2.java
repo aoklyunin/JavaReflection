@@ -43,5 +43,5 @@ public class Rect2 {
         rect.width = this.width*w;
         return rect;
     }
-    a
+
 }
