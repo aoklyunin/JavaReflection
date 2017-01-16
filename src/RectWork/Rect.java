@@ -30,7 +30,7 @@ public class Rect {
 
     @Override
     public String toString() {
-        return "Rect{" +
+        return "Triangle{" +
                 "width=" + width +
                 ",height=" + height +
                 '}';
