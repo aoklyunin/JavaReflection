@@ -1,5 +1,6 @@
 package RectWork.constructors;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -107,6 +108,38 @@ public class ReflectionRect {
         return returnObjects;
     }
 
+    public static Object checkConstructor(String yesString, String noString,
+                                             Runnable runnable){
+        try {
+            Class class_var = rect.getClass();
+            Constructor constructor  = class_var.getDeclaredConstructor();
+            Object o = constructor.newInstance();
+            if (!yesString.equals("")) System.out.println(yesString);
+            runnable.run();
+            return o;
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |InstantiationException e){
+            if (!noString.equals("")) System.out.println(noString);
+        }
+        return null;
+    }
+    public static Object [] checkConstructor(String yesString, String noString, Class[] paramTypes, Object[] arg_arr, Object[] arg_arr2,
+                                          Runnable runnable){
+        Object returnObjects[] = new Object[2];
+        try {
+            Class class_var = rect.getClass();
+            Constructor constructor  = class_var.getDeclaredConstructor(paramTypes);
+            returnObjects[0] = constructor.newInstance(arg_arr);
+            constructor  = class_var.getDeclaredConstructor(paramTypes);
+            returnObjects[1] = constructor.newInstance(arg_arr2);
+            if (!yesString.equals("")) System.out.println(yesString);
+            runnable.run();
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |InstantiationException e){
+            if (!noString.equals("")) System.out.println(noString);
+        }
+        return returnObjects;
+    }
+
+
     // проверяем поля на равенство заданным
     // параметры: имя поля; значение поля первого объекта; значение поля второго объекта
     public static boolean checkFieldValues(String filedName,double val1, double val2){
@@ -121,6 +154,47 @@ public class ReflectionRect {
         checkDoubleField("width","find field 'width'","no field 'width'");
         checkDoubleField("height","find field 'height'","no field 'height'");
 
+
+        checkMethod("toString","","no method 'toString()'",
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println(rect);
+                        System.out.println(rect2);
+                    }
+                });
+
+        System.out.println(checkConstructor("", "no method 'Rect()'", new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }));
+        dispRetObjects(checkConstructor("", "no method 'Rect(double d)'",
+                new Class[] { double.class},
+                new Object[]{ 5},new Object[]{2},
+                new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }));
+
+        dispRetObjects(checkConstructor("", "no method 'Rect(double w, double h)'",
+                new Class[] { double.class,double.class },
+                new Object[]{ 4,5},new Object[]{1,2},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+
+        dispRetObjects(checkMethod("isSquare", "", "no method 'isSquare()'", new Runnable() {
+            @Override
+            public void run() {
+
+            }}));
         dispRetObjects(checkMethod("getArea", "", "no method 'getArea()'", new Runnable() {
             @Override
             public void run() {
@@ -133,6 +207,28 @@ public class ReflectionRect {
 
             }
         }));
+
+        dispRetObjects(checkMethod("scale","","no method 'scale(double d)'",
+                new Class[] { double.class},
+                new Object[]{2},new Object[]{4},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+
+        dispRetObjects(checkMethod("scale","","no method 'scale(double w, double h)'",
+                new Class[] { double.class,double.class},
+                new Object[]{0.1,0.4},new Object[]{1.1,0.9},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+
+        /*
 
         checkMethod("modify","","no method 'modify()'",
                 new Class[] { double.class,double.class },
@@ -180,6 +276,7 @@ public class ReflectionRect {
                     public void run() {
 
                     }
-                }));
+                }));*/
+
     }
 }

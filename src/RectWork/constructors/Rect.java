@@ -10,36 +10,39 @@ public class Rect {
         return 2*(width+height);
     }
 
-    void modify(double width, double height) {
+    public Rect() {
+        width = 1;
+        height = 1;
+    }
+
+    public Rect(double d) {
+        width = d;
+        height = d;
+    }
+
+    public Rect(double width, double height) {
         this.width = width;
         this.height = height;
     }
 
-    void scale(double d){
-        this.width *= d;
-        this.height *= d;
+    Rect scale(double d){
+        return new Rect(this.width * d,this.height * d);
     }
 
+    Rect scale(double w, double h){
+        return new Rect(this.width * w,this.height * h);
+    }
 
-    Rect getAFourth(){
-        Rect rect =  new Rect();
-        rect.height = this.height/2;
-        rect.width = this.width/2;
-        return rect;
+    boolean isSquare(){
+        return width==height;
     }
 
     @Override
     public String toString() {
-        return "Triangle{" +
+        return "Rect{" +
                 "width=" + width +
                 ",height=" + height +
                 '}';
     }
 
-    Rect devide(double w, double h){
-        Rect rect =  new Rect();
-        rect.height = this.height*h;
-        rect.width = this.width*w;
-        return rect;
-    }
 }

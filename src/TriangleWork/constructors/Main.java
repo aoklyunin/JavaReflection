@@ -9,45 +9,30 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Random r = new Random();
         for (int i=0;i<10;i++) {
-            double a = r.nextDouble();
-            double b = r.nextDouble();
-            double c = r.nextDouble();
-            System.out.println(a + " " + b + " " + c);
+            double a1 = r.nextDouble();
             double a2 = r.nextDouble();
             double b2 = r.nextDouble();
-            double c2 = r.nextDouble();
-            System.out.println(a2 + " " + b2 + " " + c2);
+            double a3 = r.nextDouble();
+            double b3 = r.nextDouble();
+            double c3 = r.nextDouble();
+            System.out.println(a1);
+            System.out.println(a2+" "+b2);
+            System.out.println(a3+" "+b3+" "+c3);
             System.out.println("---------------");
-            Triangle triangle = new Triangle();
-            triangle.a = a;
-            triangle.b = b;
-            triangle.c = c;
-            Triangle triangle2 = new Triangle();
-            triangle2.a = a2;
-            triangle2.b = b2;
-            triangle2.c = c2;
-
-            System.out.println(triangle.getArea());
-            System.out.println(triangle.getPerimeter());
-            System.out.println(triangle2.getArea());
-            System.out.println(triangle2.getPerimeter());
-
-            Triangle triangle3 = new Triangle();
-            triangle3.a = triangle.a;
-            triangle3.b = triangle.b;
-            triangle3.c = triangle.c;
-            triangle3.scale(2);
-            System.out.println(triangle3.getArea());
-            System.out.println(triangle3);
-            Triangle triangle4 = triangle2.getAHalf();
-            System.out.println(triangle4.isEquilateral());
-            System.out.println(triangle4.isIsosceles());
-            System.out.println(triangle4.isRecangular());
-            // вывод
-            System.out.println(triangle);
+            Triangle triangle1 = new Triangle(a1);
+            Triangle triangle2 = new Triangle(a2,b2);
+            Triangle triangle3 = new Triangle(a3,b3,c3);
+            Triangle triangle4 = new Triangle();
+            Triangle triangle5 = triangle1.scale(2.5);
+            Triangle triangle6 = triangle2.scale(0.85, 0.8, 0.9);
+            System.out.println(triangle1.getArea()+" "+triangle2.getArea()+" "+triangle5.getArea()+" "+triangle6.getArea());
+            System.out.println(triangle5.getPerimeter()+" "+triangle6.getPerimeter());
+            System.out.println(triangle1);
             System.out.println(triangle2);
             System.out.println(triangle3);
             System.out.println(triangle4);
+            System.out.println(triangle5);
+            System.out.println(triangle6);
             System.out.println("---------------");
         }
     }

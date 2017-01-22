@@ -5,6 +5,29 @@ public class Triangle {
     double b;
     double c;
 
+    public Triangle() {
+        a = 1;
+        b = 1;
+        c = 1;
+    }
+
+    public Triangle(double a, double b, double c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
+
+    public Triangle(double a, double b) {
+        this.a = a;
+        this.b = a;
+        this.c = b;
+    }
+    public Triangle(double a) {
+        this.a = a;
+        this.b = a;
+        this.c = a;
+    }
+
     double getArea(){
         double p = (a+b+c)/2;
         return Math.sqrt(p*(p-a)*(p-b)*(p-c));
@@ -24,39 +47,12 @@ public class Triangle {
                 '}';
     }
 
-    void modify(double a, double b, double c){
-        this.a = a;
-        this.b = b;
-        this.c = c;
+    Triangle scale(double d){
+        return  new Triangle(this.a*d,this.b*d,this.c*d);
     }
 
-    void scale(double s){
-        this.a *=s;
-        this.b *=s;
-        this.c *=s;
+    Triangle scale(double da, double db, double dc){
+        return  new Triangle(this.a*da,this.b*db,this.c*dc);
     }
 
-    Triangle getAHalf(){
-        Triangle t = new Triangle();
-        t.a = this.a;
-        t.b = this.getArea()/this.a;
-        t.c = Math.sqrt(t.a*t.a+t.b+t.b);
-        return t;
-    }
-
-
-
-    boolean isIsosceles(){
-        return (a==b)&&(b==c);
-    }
-
-    boolean isRecangular(){
-        return  Math.abs(a*a+b*b-c*c)<0.01 ||
-                Math.abs(a*a-b*b+c*c)<0.01 ||
-                Math.abs(-a*a+b*b+c*c)<0.01;
-    }
-
-    boolean isEquilateral(){
-        return (a==b||b==c||c==a);
-    }
 }

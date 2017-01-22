@@ -1,5 +1,6 @@
 package TriangleWork.constructors;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -107,6 +108,37 @@ public class ReflectionTriangle {
         return returnObjects;
     }
 
+    public static Object checkConstructor(String yesString, String noString,
+                                          Runnable runnable){
+        try {
+            Class class_var = triangle.getClass();
+            Constructor constructor  = class_var.getDeclaredConstructor();
+            Object o = constructor.newInstance();
+            if (!yesString.equals("")) System.out.println(yesString);
+            runnable.run();
+            return o;
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |InstantiationException e){
+            if (!noString.equals("")) System.out.println(noString);
+        }
+        return null;
+    }
+    public static Object [] checkConstructor(String yesString, String noString, Class[] paramTypes, Object[] arg_arr, Object[] arg_arr2,
+                                             Runnable runnable){
+        Object returnObjects[] = new Object[2];
+        try {
+            Class class_var = triangle.getClass();
+            Constructor constructor  = class_var.getDeclaredConstructor(paramTypes);
+            returnObjects[0] = constructor.newInstance(arg_arr);
+            constructor  = class_var.getDeclaredConstructor(paramTypes);
+            returnObjects[1] = constructor.newInstance(arg_arr2);
+            if (!yesString.equals("")) System.out.println(yesString);
+            runnable.run();
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |InstantiationException e){
+            if (!noString.equals("")) System.out.println(noString);
+        }
+        return returnObjects;
+    }
+
     // проверяем поля на равенство заданным
     // параметры: имя поля; значение поля первого объекта; значение поля второго объекта
     public static boolean checkFieldValues(String filedName,double val1, double val2){
@@ -120,11 +152,52 @@ public class ReflectionTriangle {
         setField("b","","",1,2);
         setField("c","","",5,2);
 
-
         checkDoubleField("a","find field 'a'","no field 'a'");
         checkDoubleField("b","find field 'b'","no field 'b'");
         checkDoubleField("c","find field 'c'","no field 'c'");
 
+        checkMethod("toString","","no method 'toString()'",
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println(triangle);
+                        System.out.println(triangle2);
+                    }
+                });
+
+        System.out.println(checkConstructor("", "no method 'Triangle()'", new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }));
+        dispRetObjects(checkConstructor("", "no method 'Triangle(double d)'",
+                new Class[] { double.class},
+                new Object[]{ 5},new Object[]{2},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+        dispRetObjects(checkConstructor("", "no method 'Triangle(double a, double b)'",
+                new Class[] { double.class,double.class},
+                new Object[]{ 5,3},new Object[]{1.5,2},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+        dispRetObjects(checkConstructor("", "no method 'Triangle(double a, double b, double c)'",
+                new Class[] { double.class,double.class,double.class},
+                new Object[]{ 3,4,5},new Object[]{1,2,2.5},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
 
         dispRetObjects(checkMethod("getArea", "", "no method 'getArea()'", new Runnable() {
             @Override
@@ -140,18 +213,24 @@ public class ReflectionTriangle {
 
             }
         }));
-
-        checkMethod("modify","","no method 'modify()'",
-                new Class[] { double.class,double.class,double.class },
-                new Object[]{ 4,5,2},new Object[]{1,2,-1},
+        dispRetObjects(checkMethod("scale","","no method 'scale(double d)'",
+                new Class[] { double.class},
+                new Object[]{2},new Object[]{1},
                 new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println(checkFieldValues("a",4,1)?"YES":"NO");
-                        System.out.println(checkFieldValues("b",5,2)?"YES":"NO");
-                        System.out.println(checkFieldValues("c",2,-1)?"YES":"NO");
+
                     }
-                });
+                }));
+        dispRetObjects(checkMethod("scale","","no method 'scale(double da, double db,  double dc)'",
+                new Class[] { double.class, double.class, double.class},
+                new Object[]{1,0.5,1},new Object[]{2.5,1.1,2},
+                new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                }));
+/*
 
         setField("a","","",5,2);
         setField("b","","",1,2);
@@ -172,14 +251,7 @@ public class ReflectionTriangle {
         setField("b","","",1,2);
         setField("c","","",5,2);
 
-        checkMethod("toString","","no method 'toString()'",
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println(triangle);
-                        System.out.println(triangle2);
-                    }
-                });
+
 
 
         dispRetObjects(checkMethod("getAHalf","","no method 'getAHalf()'",
@@ -219,7 +291,7 @@ public class ReflectionTriangle {
                     public void run() {
 
                     }
-                }));
+                }));*/
 
     }
 }
