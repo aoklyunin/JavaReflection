@@ -1,14 +1,11 @@
-package MatrixWork;
-
-import RectWork.Rect;
+package RectWork.introduction;
 
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
-       /* Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         Random r = new Random();
         for (int i=0;i<4;i++) {
             double a = r.nextDouble();
@@ -43,7 +40,7 @@ public class Main {
             System.out.println(rect4);
             System.out.println(rect5);
             System.out.println("---------------");
-        }*/
+        }
     }
 }
 

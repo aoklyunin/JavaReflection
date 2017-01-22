@@ -1,4 +1,4 @@
-package RectWork;
+package RectWork.introduction;
 
 /**
  * Created by kluninao on 11.01.2017.

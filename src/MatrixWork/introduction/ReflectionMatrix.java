@@ -1,6 +1,4 @@
-package MatrixWork;
-
-import RectWork.Rect;
+package MatrixWork.introduction;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

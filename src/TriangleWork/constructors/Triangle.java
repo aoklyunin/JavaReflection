@@ -1,4 +1,4 @@
-package TriangleWork;
+package TriangleWork.constructors;
 
 public class Triangle {
     double a;

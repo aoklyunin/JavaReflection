@@ -1,6 +1,6 @@
-package MatrixWork;
+package MatrixWork.constructors;
 
-import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * Created by aokly on 21.01.2017.
@@ -10,6 +10,16 @@ public class Matrix {
     int m;
     double[][] arr;
 
+    Matrix(Scanner sc){
+        n = sc.nextInt();
+        m = sc.nextInt();
+        arr = new double[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                arr[i][j]=sc.nextDouble();
+            }
+        }
+    }
     @Override
     public String toString() {
         String s = "Matrix{";

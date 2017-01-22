@@ -1,4 +1,4 @@
-package TriangleWork;
+package RectWork.constructors;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -7,19 +7,19 @@ import java.lang.reflect.Method;
 /**
  * Created by kluninao on 11.01.2017.
  */
-public class ReflectionTriangle {
-    static Triangle triangle = new Triangle();
-    static Triangle triangle2 = new Triangle();
+public class ReflectionRect {
+    static Rect rect = new Rect();
+    static Rect rect2 = new Rect();
 
     // задаёт новое значение полю, если оно существует
     // параметры: имя поля; строка, если получилось; строка, если не получилось;
     // значение поля для первого объекта; значение поля для второго объекта
     static void setField(String fieldName, String yesString, String noString, double fieldVal1, double fieldVal2) {
         try {
-            Class class_var = triangle.getClass();
+            Class class_var = rect.getClass();
             Field width_field = class_var.getDeclaredField(fieldName);
-            width_field.setDouble(triangle, fieldVal1);
-            width_field.setDouble(triangle2, fieldVal2);
+            width_field.setDouble(rect, fieldVal1);
+            width_field.setDouble(rect2, fieldVal2);
             if (!yesString.equals("")) System.out.println(yesString);
         } catch (NoSuchFieldException | IllegalAccessException ignored) {
             if (!noString.equals("")) System.out.println(noString);
@@ -32,10 +32,10 @@ public class ReflectionTriangle {
     static Double[] checkDoubleField(String fieldName, String yesString, String noString) {
         Double[] returnObjects = new Double[2];
         try {
-            Class class_var = triangle.getClass();
+            Class class_var = rect.getClass();
             Field field = class_var.getDeclaredField(fieldName);
-            returnObjects[0] = field.getDouble(triangle);
-            returnObjects[1] = field.getDouble(triangle2);
+            returnObjects[0] = field.getDouble(rect);
+            returnObjects[1] = field.getDouble(rect2);
             if (!yesString.equals("")) System.out.println(yesString);
         } catch (NoSuchFieldException | IllegalAccessException ignored) {
             if (!noString.equals("")) System.out.println(noString);
@@ -62,14 +62,14 @@ public class ReflectionTriangle {
         Method method2 = null;
         Object returnObjects[] = new Object[2];
         try {
-            Class class_var = triangle.getClass();
+            Class class_var = rect.getClass();
             method = class_var.getDeclaredMethod(methodName);
             method.setAccessible(true);
-            returnObjects[0] = method.invoke(triangle);
-            Class class_var2 = triangle2.getClass();
+            returnObjects[0] = method.invoke(rect);
+            Class class_var2 = rect2.getClass();
             method2 = class_var2.getDeclaredMethod(methodName);
             method2.setAccessible(true);
-            returnObjects[1] = method2.invoke(triangle2);
+            returnObjects[1] = method2.invoke(rect2);
             if (!yesString.equals("")) System.out.println(yesString);
             runnable.run();
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
@@ -91,14 +91,14 @@ public class ReflectionTriangle {
         Method method2 = null;
         Object returnObjects[] = new Object[2];
         try {
-            Class class_var = triangle.getClass();
+            Class class_var = rect.getClass();
             method = class_var.getDeclaredMethod(methodName, paramTypes);
             method.setAccessible(true);
-            returnObjects[0] = method.invoke(triangle, arg_arr);
-            Class class_var2 = triangle2.getClass();
+            returnObjects[0] = method.invoke(rect, arg_arr);
+            Class class_var2 = rect2.getClass();
             method2 = class_var2.getDeclaredMethod(methodName, paramTypes);
             method2.setAccessible(true);
-            returnObjects[1] = method2.invoke(triangle2, arg_arr2);
+            returnObjects[1] = method2.invoke(rect2, arg_arr2);
             if (!yesString.equals("")) System.out.println(yesString);
             runnable.run();
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
@@ -115,16 +115,11 @@ public class ReflectionTriangle {
     }
     // главный метод
     public static void main(String[] args) {
+        setField("width","","",5,2);
+        setField("height","","",1,2);
 
-        setField("a","","",5,2);
-        setField("b","","",1,2);
-        setField("c","","",5,2);
-
-
-        checkDoubleField("a","find field 'a'","no field 'a'");
-        checkDoubleField("b","find field 'b'","no field 'b'");
-        checkDoubleField("c","find field 'c'","no field 'c'");
-
+        checkDoubleField("width","find field 'width'","no field 'width'");
+        checkDoubleField("height","find field 'height'","no field 'height'");
 
         dispRetObjects(checkMethod("getArea", "", "no method 'getArea()'", new Runnable() {
             @Override
@@ -132,8 +127,6 @@ public class ReflectionTriangle {
 
             }
         }));
-
-
         dispRetObjects(checkMethod("getPerimeter","","no method 'getPerimeter()'", new Runnable() {
             @Override
             public void run() {
@@ -142,47 +135,36 @@ public class ReflectionTriangle {
         }));
 
         checkMethod("modify","","no method 'modify()'",
-                new Class[] { double.class,double.class,double.class },
-                new Object[]{ 4,5,2},new Object[]{1,2,-1},
+                new Class[] { double.class,double.class },
+                new Object[]{ 4,5},new Object[]{1,2},
                 new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println(checkFieldValues("a",4,1)?"YES":"NO");
-                        System.out.println(checkFieldValues("b",5,2)?"YES":"NO");
-                        System.out.println(checkFieldValues("c",2,-1)?"YES":"NO");
+                        System.out.println(checkFieldValues("width",4,1)?"YES":"NO");
+                        System.out.println(checkFieldValues("height",5,2)?"YES":"NO");
                     }
                 });
 
-        setField("a","","",5,2);
-        setField("b","","",1,2);
-        setField("c","","",5,2);
         checkMethod("scale","","no method 'scale()'",
                 new Class[] { double.class},
-                new Object[]{2},new Object[]{1},
+                new Object[]{2},new Object[]{4},
                 new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println(checkFieldValues("a", 10, 2) ? "YES" : "NO");
-                        System.out.println(checkFieldValues("b", 2,  2) ? "YES" : "NO");
-                        System.out.println(checkFieldValues("c", 10, 2) ? "YES" : "NO");
+                        System.out.println(checkFieldValues("width", 8, 4) ? "YES" : "NO");
+                        System.out.println(checkFieldValues("height", 10, 8) ? "YES" : "NO");
                     }
                 });
-
-        setField("a","","",5,2);
-        setField("b","","",1,2);
-        setField("c","","",5,2);
-
         checkMethod("toString","","no method 'toString()'",
                 new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println(triangle);
-                        System.out.println(triangle2);
+                        System.out.println(rect);
+                        System.out.println(rect2);
                     }
                 });
 
-
-        dispRetObjects(checkMethod("getAHalf","","no method 'getAHalf()'",
+        dispRetObjects(checkMethod("getAFourth","","no method 'getAFourth()'",
                 new Runnable() {
                     @Override
                     public void run() {
@@ -190,36 +172,14 @@ public class ReflectionTriangle {
                     }
                 }));
 
-        setField("a","","",5,2);
-        setField("b","","",1,2);
-        setField("c","","",5,2);
-
-
-        dispRetObjects(checkMethod("isEquilateral", "", "no method 'isEquilateral()'",
+        dispRetObjects(checkMethod("devide", "", "no method 'devide()'",
+                new Class[]{double.class, double.class},
+                new Object[]{0.3, 0.1}, new Object[]{1, 0.1},
                 new Runnable() {
                     @Override
                     public void run() {
 
                     }
                 }));
-
-        dispRetObjects(checkMethod("isIsosceles", "", "no method 'isIsosceles()'",
-                new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                }));
-        setField("a","","",5,3);
-        setField("b","","",1,4);
-        setField("c","","",5,5);
-        dispRetObjects(checkMethod("isRecangular", "", "no method 'isRecangular()'",
-                new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                }));
-
     }
 }

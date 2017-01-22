@@ -1,4 +1,4 @@
-package RectWork;
+package FracWork.introduction;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -7,19 +7,19 @@ import java.lang.reflect.Method;
 /**
  * Created by kluninao on 11.01.2017.
  */
-public class ReflectionRect {
-    static Rect rect = new Rect();
-    static Rect rect2 = new Rect();
+public class ReflectionFrac {
+    static Frac rect = new Frac();
+    static Frac rect2 = new Frac();
 
     // задаёт новое значение полю, если оно существует
     // параметры: имя поля; строка, если получилось; строка, если не получилось;
     // значение поля для первого объекта; значение поля для второго объекта
-    static void setField(String fieldName, String yesString, String noString, double fieldVal1, double fieldVal2) {
+    static void setField(String fieldName, String yesString, String noString, int fieldVal1, int fieldVal2) {
         try {
             Class class_var = rect.getClass();
             Field width_field = class_var.getDeclaredField(fieldName);
-            width_field.setDouble(rect, fieldVal1);
-            width_field.setDouble(rect2, fieldVal2);
+            width_field.setInt(rect, fieldVal1);
+            width_field.setInt(rect2, fieldVal2);
             if (!yesString.equals("")) System.out.println(yesString);
         } catch (NoSuchFieldException | IllegalAccessException ignored) {
             if (!noString.equals("")) System.out.println(noString);
@@ -115,46 +115,13 @@ public class ReflectionRect {
     }
     // главный метод
     public static void main(String[] args) {
-        setField("width","","",5,2);
-        setField("height","","",1,2);
+        setField("numerator","","",6,2);
+        setField("denominator","","",2,1);
 
-        checkDoubleField("width","find field 'width'","no field 'width'");
-        checkDoubleField("height","find field 'height'","no field 'height'");
 
-        dispRetObjects(checkMethod("getArea", "", "no method 'getArea()'", new Runnable() {
-            @Override
-            public void run() {
+        checkDoubleField("numerator","find field 'numerator'","no field 'numerator'");
+        checkDoubleField("denominator","find field 'denominator'","no field 'denominator'");
 
-            }
-        }));
-        dispRetObjects(checkMethod("getPerimeter","","no method 'getPerimeter()'", new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }));
-
-        checkMethod("modify","","no method 'modify()'",
-                new Class[] { double.class,double.class },
-                new Object[]{ 4,5},new Object[]{1,2},
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println(checkFieldValues("width",4,1)?"YES":"NO");
-                        System.out.println(checkFieldValues("height",5,2)?"YES":"NO");
-                    }
-                });
-
-        checkMethod("scale","","no method 'scale()'",
-                new Class[] { double.class},
-                new Object[]{2},new Object[]{4},
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println(checkFieldValues("width", 8, 4) ? "YES" : "NO");
-                        System.out.println(checkFieldValues("height", 10, 8) ? "YES" : "NO");
-                    }
-                });
         checkMethod("toString","","no method 'toString()'",
                 new Runnable() {
                     @Override
@@ -164,7 +131,18 @@ public class ReflectionRect {
                     }
                 });
 
-        dispRetObjects(checkMethod("getAFourth","","no method 'getAFourth()'",
+        dispRetObjects(checkMethod("sum","","no method 'sum(Frac a)'",
+                new Class[] { Frac.class},
+                new Object[]{new Frac(1)},new Object[]{new Frac(4,3)},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+        dispRetObjects(checkMethod("sum","","no method 'sum(int a)'",
+                new Class[] { int.class},
+                new Object[]{-1},new Object[]{4},
                 new Runnable() {
                     @Override
                     public void run() {
@@ -172,9 +150,81 @@ public class ReflectionRect {
                     }
                 }));
 
-        dispRetObjects(checkMethod("devide", "", "no method 'devide()'",
-                new Class[]{double.class, double.class},
-                new Object[]{0.3, 0.1}, new Object[]{1, 0.1},
+        dispRetObjects(checkMethod("mult","","no method 'mult(Frac a)'",
+                new Class[] { Frac.class},
+                new Object[]{new Frac(-5    )},new Object[]{new Frac(4,3)},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+        dispRetObjects(checkMethod("mult","","no method 'mult(int a)'",
+                new Class[] { int.class},
+                new Object[]{-1},new Object[]{4},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+        dispRetObjects(checkMethod("div","","no method 'div(int a)'",
+                new Class[] { int.class},
+                new Object[]{-1},new Object[]{4},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+
+        dispRetObjects(checkMethod("inv","","no method 'inv()'",
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+        //
+        setField("denominator","","",1,0);
+
+        dispRetObjects(checkMethod("isDenumeratorZero","","no method 'isDenumeratorZero()'",
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+        setField("denominator","","",2,1);
+        dispRetObjects(checkMethod("isShorten","","no method 'isShorten()'",
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+        dispRetObjects(checkMethod("doShort","","no method 'doShort()'",
+
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+
+        dispRetObjects(checkMethod("isEqual","","no method 'isEqual()'",
+                new Class[] { Frac.class},
+                new Object[]{new Frac(15,5)},new Object[]{new Frac(4,3)},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+
+        dispRetObjects(checkMethod("compareTo","","no method 'compareTo()'",
+                new Class[] { Frac.class},
+                new Object[]{new Frac(15,5)},new Object[]{new Frac(9,3)},
                 new Runnable() {
                     @Override
                     public void run() {

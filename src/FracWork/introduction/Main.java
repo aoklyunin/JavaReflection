@@ -1,6 +1,4 @@
-package FracWork;
-
-import TriangleWork.Triangle;
+package FracWork.introduction;
 
 import java.util.Random;
 import java.util.Scanner;

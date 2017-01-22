@@ -1,4 +1,4 @@
-package RectWork;
+package RectWork.constructors;
 
 public class Rect {
     double width;
@@ -36,7 +36,7 @@ public class Rect {
                 '}';
     }
 
-    Rect devide(double w,double h){
+    Rect devide(double w, double h){
         Rect rect =  new Rect();
         rect.height = this.height*h;
         rect.width = this.width*w;

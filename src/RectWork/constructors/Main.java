@@ -1,4 +1,4 @@
-package RectWork;
+package RectWork.constructors;
 
 import java.util.Random;
 import java.util.Scanner;

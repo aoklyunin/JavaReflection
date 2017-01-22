@@ -1,6 +1,4 @@
-package FracWork;
-
-import com.sun.org.apache.bcel.internal.generic.RET;
+package FracWork.constructors;
 
 /**
  * Created by aokly on 21.01.2017.
