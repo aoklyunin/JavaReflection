@@ -55,4 +55,6 @@ public class Triangle {
         return  new Triangle(this.a*da,this.b*db,this.c*dc);
     }
 
+
+
 }

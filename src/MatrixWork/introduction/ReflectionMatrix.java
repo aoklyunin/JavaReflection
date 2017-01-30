@@ -310,6 +310,45 @@ public class ReflectionMatrix {
             }
         }));
 
+        Matrix m = new Matrix();
+        m.arr = new double[][]{
+                {1.1, 0},
+                {0.1, 1},
+                {1.1, 1},
+        };
+        m.n = m.arr.length;
+        m.m = m.arr[0].length;
+
+        Matrix m2 = new Matrix();
+        m2.arr = new double[][]{
+                {1.1, 2.0},
+                {0.1, 1},
+                {0.1, 1},
+        };
+        m2.n = m2.arr.length;
+        m2.m = m2.arr[0].length;
+
+
+        dispRetObjects(checkMethod("multM", "", "no method 'multM()'",
+                new Class[]{Matrix.class},
+                new Object[]{m},new Object[]{m2},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+
+
+        dispRetObjects(checkMethod("sum", "", "no method 'sum()'",
+                new Class[]{Matrix.class},
+                new Object[]{m},new Object[]{m2},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
 
 /*
         checkMethod("scale","","no method 'scale()'",

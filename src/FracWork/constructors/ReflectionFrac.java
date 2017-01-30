@@ -1,5 +1,8 @@
 package FracWork.constructors;
 
+import MatrixWork.introduction.Matrix;
+
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -113,6 +116,39 @@ public class ReflectionFrac {
         Double d [] = checkDoubleField(filedName,"","");
         return d[0] == val1 && d[1]==val2;
     }
+
+    public static Object checkConstructor(String yesString, String noString,
+                                          Runnable runnable){
+        try {
+            Class class_var = rect.getClass();
+            Constructor constructor  = class_var.getDeclaredConstructor();
+            Object o = constructor.newInstance();
+            if (!yesString.equals("")) System.out.println(yesString);
+            runnable.run();
+            return o;
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |InstantiationException e){
+            if (!noString.equals("")) System.out.println(noString);
+        }
+        return null;
+    }
+    public static Object [] checkConstructor(String yesString, String noString, Class[] paramTypes, Object[] arg_arr, Object[] arg_arr2,
+                                             Runnable runnable){
+        Object returnObjects[] = new Object[2];
+        try {
+            Class class_var = rect.getClass();
+            Constructor constructor  = class_var.getDeclaredConstructor(paramTypes);
+            returnObjects[0] = constructor.newInstance(arg_arr);
+            constructor  = class_var.getDeclaredConstructor(paramTypes);
+            returnObjects[1] = constructor.newInstance(arg_arr2);
+            if (!yesString.equals("")) System.out.println(yesString);
+            runnable.run();
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |InstantiationException e){
+            if (!noString.equals("")) System.out.println(noString);
+        }
+        return returnObjects;
+    }
+
+
     // главный метод
     public static void main(String[] args) {
         setField("numerator","","",6,2);
@@ -130,6 +166,32 @@ public class ReflectionFrac {
                         System.out.println(rect2);
                     }
                 });
+
+        System.out.println(checkConstructor("", "no method 'Frac()'", new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }));
+        dispRetObjects(checkConstructor("", "no method 'Frac(int a)'",
+                new Class[] { int.class},
+                new Object[]{ 5},new Object[]{2},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+        dispRetObjects(checkConstructor("", "no method 'Frac(int a,int b)'",
+                new Class[] { int.class, int.class},
+                new Object[]{ 5,1},new Object[]{2,4},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+
 
         dispRetObjects(checkMethod("sum","","no method 'sum(Frac a)'",
                 new Class[] { Frac.class},
@@ -150,6 +212,7 @@ public class ReflectionFrac {
                     }
                 }));
 
+
         dispRetObjects(checkMethod("mult","","no method 'mult(Frac a)'",
                 new Class[] { Frac.class},
                 new Object[]{new Frac(-5    )},new Object[]{new Frac(4,3)},
@@ -168,15 +231,6 @@ public class ReflectionFrac {
 
                     }
                 }));
-        dispRetObjects(checkMethod("div","","no method 'div(int a)'",
-                new Class[] { int.class},
-                new Object[]{-1},new Object[]{4},
-                new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                }));
 
         dispRetObjects(checkMethod("inv","","no method 'inv()'",
                 new Runnable() {
@@ -185,24 +239,7 @@ public class ReflectionFrac {
 
                     }
                 }));
-        //
-        setField("denominator","","",1,0);
 
-        dispRetObjects(checkMethod("isDenumeratorZero","","no method 'isDenumeratorZero()'",
-                new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                }));
-        setField("denominator","","",2,1);
-        dispRetObjects(checkMethod("isShorten","","no method 'isShorten()'",
-                new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                }));
         dispRetObjects(checkMethod("doShort","","no method 'doShort()'",
 
                 new Runnable() {
@@ -212,24 +249,23 @@ public class ReflectionFrac {
                     }
                 }));
 
-        dispRetObjects(checkMethod("isEqual","","no method 'isEqual()'",
-                new Class[] { Frac.class},
-                new Object[]{new Frac(15,5)},new Object[]{new Frac(4,3)},
+        double arr[][] =  {{1}};
+
+        final boolean[] flg = new boolean[]{false};
+
+        Frac [] mArr = (Frac[]) checkMethod("myClone","","no method 'myClone()'",
                 new Runnable() {
                     @Override
                     public void run() {
-
+                        flg[0] = true;
                     }
-                }));
+                });
+        if (flg[0]){
+            
+        }
 
-        dispRetObjects(checkMethod("compareTo","","no method 'compareTo()'",
-                new Class[] { Frac.class},
-                new Object[]{new Frac(15,5)},new Object[]{new Frac(9,3)},
-                new Runnable() {
-                    @Override
-                    public void run() {
 
-                    }
-                }));
+
+
     }
 }
