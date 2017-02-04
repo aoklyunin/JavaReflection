@@ -167,30 +167,6 @@ public class ReflectionFrac {
                     }
                 });
 
-        System.out.println(checkConstructor("", "no method 'Frac()'", new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }));
-        dispRetObjects(checkConstructor("", "no method 'Frac(int a)'",
-                new Class[] { int.class},
-                new Object[]{ 5},new Object[]{2},
-                new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                }));
-        dispRetObjects(checkConstructor("", "no method 'Frac(int a,int b)'",
-                new Class[] { int.class, int.class},
-                new Object[]{ 5,1},new Object[]{2,4},
-                new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                }));
 
 
         dispRetObjects(checkMethod("sum","","no method 'sum(Frac a)'",
@@ -232,6 +208,33 @@ public class ReflectionFrac {
                     }
                 }));
 
+        System.out.println(checkConstructor("", "no method 'Frac()'", new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }));
+        dispRetObjects(checkConstructor("", "no method 'Frac(int a)'",
+                new Class[] { int.class},
+                new Object[]{ 5},new Object[]{2},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+        dispRetObjects(checkConstructor("", "no method 'Frac(int a,int b)'",
+                new Class[] { int.class, int.class},
+                new Object[]{ 5,1},new Object[]{2,4},
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }));
+
+
+        System.out.println("-_----------");
         dispRetObjects(checkMethod("inv","","no method 'inv()'",
                 new Runnable() {
                     @Override
@@ -249,23 +252,23 @@ public class ReflectionFrac {
                     }
                 }));
 
-        double arr[][] =  {{1}};
 
         final boolean[] flg = new boolean[]{false};
 
-        Frac [] mArr = (Frac[]) checkMethod("myClone","","no method 'myClone()'",
+        Object [] mArr =  checkMethod("myClone","","no method 'myClone()'",
                 new Runnable() {
                     @Override
                     public void run() {
                         flg[0] = true;
                     }
                 });
-        if (flg[0]){
-            
+
+        if (flg[0]) {
+                rect.numerator = 12;
+                rect2.numerator = 11;
         }
 
-
-
+        dispRetObjects(mArr);
 
     }
 }

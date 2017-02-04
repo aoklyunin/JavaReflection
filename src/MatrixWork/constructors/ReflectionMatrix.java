@@ -1,5 +1,6 @@
 package MatrixWork.constructors;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -155,6 +156,37 @@ public class ReflectionMatrix {
         return returnObjects;
     }
 
+    public static Object checkConstructor(String yesString, String noString,
+                                          Runnable runnable){
+        try {
+            Class class_var = rect.getClass();
+            Constructor constructor  = class_var.getDeclaredConstructor();
+            Object o = constructor.newInstance();
+            if (!yesString.equals("")) System.out.println(yesString);
+            runnable.run();
+            return o;
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |InstantiationException e){
+            if (!noString.equals("")) System.out.println(noString);
+        }
+        return null;
+    }
+    public static Object [] checkConstructor(String yesString, String noString, Class[] paramTypes, Object[] arg_arr, Object[] arg_arr2,
+                                             Runnable runnable){
+        Object returnObjects[] = new Object[2];
+        try {
+            Class class_var = rect.getClass();
+            Constructor constructor  = class_var.getDeclaredConstructor(paramTypes);
+            returnObjects[0] = constructor.newInstance(arg_arr);
+            constructor  = class_var.getDeclaredConstructor(paramTypes);
+            returnObjects[1] = constructor.newInstance(arg_arr2);
+            if (!yesString.equals("")) System.out.println(yesString);
+            runnable.run();
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |InstantiationException e){
+            if (!noString.equals("")) System.out.println(noString);
+        }
+        return returnObjects;
+    }
+
     // проверяет, существует ли метод с параметрами
     // возвращаемое значение: массив из двух элементов, соответствующий значениям, возвращённым методом
     // первого объекта и второго объекта
@@ -180,6 +212,7 @@ public class ReflectionMatrix {
             runnable.run();
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             if (!noString.equals("")) System.out.println(noString);
+            System.out.println(e+"");
         }
         return returnObjects;
     }
@@ -193,18 +226,18 @@ public class ReflectionMatrix {
 
     // главный метод
     public static void main(String[] args) {
-        double[][] arr1 = {
-                {1.1, 2.0, 3.7},
-                {0.1, 1, 12},
-                {-9, 1, 11},
-        };
+            double[][] arr1 = {
+                    {1.1, 2.0, 3.7},
+                    {0.1, 1, 12},
+                    {-9, 1, 11},
+            };
 
-        double[][] arr2 = {
-                {1.1, 2.0},
-                {1.1, 1},
-                {0.2, 1},
-                {-0.01, 1},
-        };
+            double[][] arr2 = {
+                    {1.1, 2.0,1,2.1},
+                    {1.1, 1,1,1.1},
+                    {0.2, 1,0.9,7},
+                    {-0.01, 1, 1,1},
+            };
 
         setField("n", "", "", arr1.length, arr2.length);
         setField("m", "", "", arr1[0].length, arr2[1].length);
@@ -222,18 +255,6 @@ public class ReflectionMatrix {
                         System.out.println(rect2);
                     }
                 });
-        System.out.println("-----------------");
-        checkMethod("setArr", "", "no method 'setArr(double [][] arr) '",
-                new Class[]{double[][].class},
-                new Object[]{new double[][]{{1, 2}, {2, 5}}}, new Object[]{new double[][]{{1}}},
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println(rect);
-                        System.out.println(rect2);
-                    }
-                });
-
         System.out.println("-----------------");
         setField("n", "", "", arr1.length, arr2.length);
         setField("m", "", "", arr1[0].length, arr2[1].length);
@@ -266,7 +287,7 @@ public class ReflectionMatrix {
                     }
                 }));
         System.out.println("-----------------");
-        dispRetObjects(checkMethod("multM", "", "no method 'multM()'",
+        dispRetObjects(checkMethod("mult", "", "no method 'mult()'",
                 new Class[]{Matrix.class},
                 new Object[]{new Matrix( new double[][] {
                         {1.1, 0},
@@ -284,54 +305,15 @@ public class ReflectionMatrix {
                     }
                 }));
 
-        System.out.println("-----------------");
-        dispRetObjects(checkMethod("isSquare","","no method 'isSquare()'", new Runnable() {
+        System.out.println(checkConstructor("", "no method 'Matrix()'", new Runnable() {
             @Override
             public void run() {
 
             }
         }));
-
-        arr2 = new double[][]{
-                {1,0,0},
-                {0,1,0},
-                {0,0,1},
-        };
-
-        setField("n", "", "", arr1.length, arr2.length);
-        setField("m", "", "", arr1[0].length, arr2[1].length);
-        setField("arr", "", "", arr1, arr2);
-
-        System.out.println("-----------------");
-        dispRetObjects(checkMethod("isIdent","","no method 'isIdent()'", new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }));
-
-
-/*
-        checkMethod("scale","","no method 'scale()'",
-                new Class[] { double.class},
-                new Object[]{2},new Object[]{4},
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println(checkFieldValues("width", 8, 4) ? "YES" : "NO");
-                        System.out.println(checkFieldValues("height", 10, 8) ? "YES" : "NO");
-                    }
-                });
-        checkMethod("toString","","no method 'toString()'",
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println(rect);
-                        System.out.println(rect2);
-                    }
-                });
-
-        dispRetObjects(checkMethod("getAFourth","","no method 'getAFourth()'",
+        dispRetObjects(checkConstructor("", "no method 'Matrix(int n)'",
+                new Class[] { int.class},
+                new Object[]{ 5},new Object[]{2},
                 new Runnable() {
                     @Override
                     public void run() {
@@ -339,14 +321,74 @@ public class ReflectionMatrix {
                     }
                 }));
 
-        dispRetObjects(checkMethod("devide", "", "no method 'devide()'",
-                new Class[]{double.class, double.class},
-                new Object[]{0.3, 0.1}, new Object[]{1, 0.1},
+        dispRetObjects(checkConstructor("", "no method 'Matrix(int n, int m)'",
+                new Class[] { int.class,int.class},
+                new Object[]{ 5,2},new Object[]{2,8},
                 new Runnable() {
                     @Override
                     public void run() {
 
                     }
-                }));*/
+                }));
+
+        final boolean[] flg = new boolean[]{false};
+        double[][] arr4 = {
+                {1.1, 2.0, 3.7,9,1},
+                {0.1, 1, 12,5,1},
+                {-9, 1, 11,1,2},
+        };
+        double[][] arr5 = {
+                {1.1, 1},
+                {0.1, 0.12},
+                {-9, 7.1},
+        };
+        Object [] mArr = checkConstructor("", "no method 'Matrix(double [][] arr)'",
+                new Class[] { double[][].class},
+                new Object[]{ arr4},new Object[]{arr5},
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        flg[0]=true;
+                    }
+                });
+
+        arr4[1][1] = 0.4;
+        arr4[0][2] = -0.4;
+        arr5[1][1] = 0.91;
+        arr5[0][1] = -20.4;
+
+        dispRetObjects(mArr);
+
+
+        flg[0] = false;
+
+        mArr =  checkMethod("myClone","","no method 'myClone()'",
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        flg[0] = true;
+                    }
+                });
+
+        if (flg[0]) {
+            rect.arr[1][1] = 0.4;
+            rect.arr[0][2] = -0.4;
+            rect2.arr[1][1] = 0.91;
+            rect2.arr[0][1] = -20.4;
+        }
+
+        dispRetObjects(mArr);
+
+
+
+            dispRetObjects(checkMethod("getMinor", "", "no method 'getMinor()'",
+                    new Class[] { int.class,int.class},
+                    new Object[]{ 0,1},new Object[]{1,0},
+                    new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    }));
     }
 }

@@ -31,11 +31,9 @@ public class Main {
                     break;
             }
             System.out.println(s);
-            Frac frac4 = frac3.mult(3).sum(frac2.inv()).sum(-2);
+            Frac frac4 = frac1.mult(2).sum(frac3.inv()).sum(-2);
             System.out.println(frac4);
-            System.out.println(frac4.isShorten());
-            System.out.println(frac4.doShort());
-            System.out.println(frac3.isEqual(frac4)?"YES":"NO");
+            System.out.println(frac4.isShorten()?"YES":"NO");
 
             System.out.println(frac1);
             System.out.println(frac2);

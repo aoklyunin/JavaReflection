@@ -92,4 +92,8 @@ public class Frac {
         return (int) Math.signum(f2.numerator);
     }
 
+    Frac myClone(){
+        return  new Frac(this.numerator,this.denominator);
+    }
+
 }
