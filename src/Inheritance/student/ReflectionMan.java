@@ -259,7 +259,7 @@ public class ReflectionMan {
 
         checkMethod("setName","","no method 'setName(String s)'",
                 new Class[] { String.class},
-                new Object[]{" addText"},new Object[]{" addText2"},
+                new Object[]{"tmp"},new Object[]{"tmp2"},
                 new Runnable() {
                     @Override
                     public void run() {

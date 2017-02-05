@@ -14,7 +14,7 @@ public class ReflectionStudent {
 
     // задаёт новое значение полю, если оно существует
     // параметры: имя поля; строка, если получилось; строка, если не получилось;
-    // значение поля для первого объекта; значение поля для второго объекта
+    // значение поля для перв   ого объекта; значение поля для второго объекта
     static void setField(String fieldName, String yesString, String noString, int fieldVal1, int fieldVal2) {
         try {
             Class class_var = rect.getClass();

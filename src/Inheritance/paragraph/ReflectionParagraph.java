@@ -178,7 +178,6 @@ public class ReflectionParagraph {
         setField("caption","","","c1","c2");
 
 
-        checkStringField("text","find field 'text'","no field 'text'");
         checkStringField("caption","find field 'caption'","no field 'caption'");
 
 
@@ -188,6 +187,7 @@ public class ReflectionParagraph {
 
             }
         }));
+        System.out.println("-----------------------------------");
         dispRetObjects(checkConstructor("", "no method 'Paragraph(String caption)'",
                 new Class[] { String.class},
                 new Object[]{"textTmp"},new Object[]{"textTmp2"},
@@ -197,6 +197,7 @@ public class ReflectionParagraph {
 
                     }
                 }));
+        System.out.println("-----------------------------------");
         dispRetObjects(checkConstructor("", "no method 'Paragraph(String text, String caption)'",
                 new Class[] { String.class,String.class},
                 new Object[]{"textTmp","caption1"},new Object[]{"textTmp2","caption2"},
@@ -206,7 +207,7 @@ public class ReflectionParagraph {
 
                     }
                 }));
-
+        System.out.println("-----------------------------------");
 
         checkMethod("toString","","no method 'toString()'",
                 new Runnable() {
