@@ -123,7 +123,8 @@ public class MyReflection {
     }
 
     public static RetStruct checkMethod(String methodName, Class[] paramTypes, Object[] arg_arr, Object[] arg_arr2) {
-        return checkMethod(methodName, "find method " + methodName + " with params" + Arrays.toString(paramTypes), "no method " + methodName, paramTypes,
+        return checkMethod(methodName, "find method " + methodName + " with params" + Arrays.toString(paramTypes),
+                "no method " + methodName + " with params" + Arrays.toString(paramTypes), paramTypes,
                 arg_arr, arg_arr2);
     }
 
@@ -186,7 +187,6 @@ public class MyReflection {
 
     public static RetStruct checkConstructor(String yesString, String noString) {
         RetStruct retStruct = new RetStruct();
-
         try {
             Class class_var = obj1.getClass();
             Constructor constructor = class_var.getDeclaredConstructor();
@@ -238,10 +238,12 @@ public class MyReflection {
                                              Runnable runnable) {
         return checkConstructor("find constructor with params" + Arrays.toString(paramTypes),
                 "no constructor with params" + Arrays.toString(paramTypes), paramTypes,
-                arg_arr, arg_arr2,runnable);
+                arg_arr, arg_arr2, runnable);
     }
 
-    public static void separate(){
+    public static void separate() {
         System.out.println("--------------------------------------------------------------------------");
     }
+
+
 }

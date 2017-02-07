@@ -1,6 +1,7 @@
 package customReflection;
 
 import java.lang.reflect.*;
+import java.util.Arrays;
 
 import static customReflection.MyReflection.*;
 
@@ -60,7 +61,7 @@ public class RetStruct {
     public RetStruct(Method method, Object[] arg_arr, Object[] arg_arr2) throws IllegalAccessException, InvocationTargetException {
         method.setAccessible(true);
         this.setModifiers(method.getModifiers());
-        this.isOverrided = method.getDeclaringClass().equals(obj1.getClass());
+        this.isOverrided = !method.getDeclaringClass().equals(obj1.getClass());
         this.paramType = method.getReturnType();
         this.objects[0] = method.invoke(obj1, arg_arr);
         this.objects[1] = method.invoke(obj2, arg_arr2);
@@ -87,9 +88,24 @@ public class RetStruct {
         this.isNullable = false;
     }
 
+    public void check(int modifier, String yesString, String noString) {
+        if (isNullable) {
+            System.out.println(noString);
+            return;
+        }
+        if (this.modifier == modifier) {
+            System.out.println(yesString + this.getObjects());
+        } else {
+            System.out.println(noString);
+        }
+    }
+
+    public void check(int modifier) {
+        check(modifier,"success definding ", "error definding ");
+    }
 
     public void check(Class paramType, boolean isStatic, boolean isFinal, boolean isAbstract, boolean isOverrided, int modifier) {
-        check(paramType, isStatic, isFinal, isAbstract, isOverrided, modifier, "success definding", "error definding");
+        check(paramType, isStatic, isFinal, isAbstract, isOverrided, modifier, "success definding ", "error definding ");
     }
 
     public void check(Class paramType, boolean isStatic, boolean isFinal, boolean isAbstract, boolean isOverrided, int modifier,
@@ -99,14 +115,14 @@ public class RetStruct {
             return;
         }
         if (this.paramType == paramType && this.isStatic == isStatic && this.isFinal == isFinal && this.isOverrided == isOverrided && this.isAbstract == isAbstract && this.modifier == modifier) {
-            System.out.println(yesString + this.toString());
+            System.out.println(yesString + this.getObjects());
         } else {
             System.out.println(noString);
         }
     }
 
     public void check(Class paramType) {
-        check(paramType, "success definding", "error definding");
+        check(paramType, "success definding ", "error definding ");
     }
 
     public void check(Class paramType, String yesString, String noString) {
@@ -115,7 +131,7 @@ public class RetStruct {
             return;
         }
         if (this.paramType == paramType) {
-            System.out.println(yesString + this.toString());
+            System.out.println(yesString + this.getObjects());
         } else {
             System.out.println(noString);
         }
@@ -126,7 +142,7 @@ public class RetStruct {
             System.out.println(noString);
             return;
         }
-        System.out.println(yesString+this.toString());
+        System.out.println(yesString+this.getObjects());
     }
 
     public void check() {
@@ -143,7 +159,7 @@ public class RetStruct {
             return;
         }
         if (this.paramType == paramType && this.modifier == modifier) {
-            System.out.println(yesString + this.toString());
+            System.out.println(yesString + this.getObjects());
         } else {
             System.out.println(noString);
         }
@@ -151,6 +167,19 @@ public class RetStruct {
 
     @Override
     public String toString() {
+        return "RetStruct{" +
+                "objects=" + Arrays.toString(objects) +
+                ", isStatic=" + isStatic +
+                ", modifier=" + modifier +
+                ", isFinal=" + isFinal +
+                ", isAbstract=" + isAbstract +
+                ", paramType=" + paramType +
+                ", isOverrided=" + isOverrided +
+                ", isNullable=" + isNullable +
+                '}';
+    }
+
+    public String getObjects() {
         String s = "";
         for (Object o : objects)
             s += o.toString() + " ";
