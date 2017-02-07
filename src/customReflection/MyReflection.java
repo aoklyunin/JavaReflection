@@ -1,6 +1,4 @@
-package def;
-
-import Inheritance.polynom.MyPolynom;
+package customReflection;
 
 import java.lang.reflect.*;
 import java.util.Arrays;

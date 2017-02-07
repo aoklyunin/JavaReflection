@@ -1,18 +1,8 @@
 package RectWork.statica;
 
-import Inheritance.polynom.MyArray;
-import def.MyReflection;
+import customReflection.MyReflection;
+import static customReflection.MyReflection.MODIFIER_PUBLIC;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import static def.MyReflection.MODIFIER_PUBLIC;
-
-/**
- * Created by kluninao on 11.01.2017.
- */
 public class ReflectionRect {
     public static void main(String[] args) {
         MyReflection.setClass(Rect.class);

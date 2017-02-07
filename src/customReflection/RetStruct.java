@@ -1,8 +1,8 @@
-package def;
+package customReflection;
 
 import java.lang.reflect.*;
 
-import static def.MyReflection.*;
+import static customReflection.MyReflection.*;
 
 /**
  * Created by teacher on 07.02.17.
