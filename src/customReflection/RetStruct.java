@@ -181,8 +181,9 @@ public class RetStruct {
 
     public String getObjects() {
         String s = "";
+        if (!objects[0].getClass().isArray())
         for (Object o : objects)
-            s += o.toString() + " ";
+            s += o==null?"null":o.toString() + " ";
         return s;
     }
 

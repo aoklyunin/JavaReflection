@@ -1,11 +1,8 @@
 package MatrixWork.statica;
 
-import java.util.Random;
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-
+/*
         Scanner sc = new Scanner(System.in);
         Random r = new Random();
         for (int i=0;i<20;i++) {
@@ -69,7 +66,7 @@ public class Main {
             System.out.println(matrix4==null?"null":matrix4);
             System.out.println(matrix5==null?"null":matrix5);
 
-        }
+        }*/
     }
 }
 

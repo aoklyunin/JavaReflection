@@ -1,8 +1,6 @@
 package MatrixWork.statica;
 
-import RectWork.statica.Rect;
 import customReflection.MyReflection;
-import customReflection.RetStruct;
 
 import static customReflection.MyReflection.*;
 
@@ -28,13 +26,13 @@ public class ReflectionMatrix {
         setField("arr",  arr1, arr2);
 
 
-        MyReflection.getField("n").check(double.class, MyReflection.MODIFIER_PRIVATE);
-        MyReflection.getField("m").check(double.class, MyReflection.MODIFIER_PRIVATE);
-        MyReflection.getField("arr").check(double.class, MyReflection.MODIFIER_PRIVATE);
+        MyReflection.getField("n").check(int.class, MyReflection.MODIFIER_PRIVATE);
+        MyReflection.getField("m").check(int.class, MyReflection.MODIFIER_PRIVATE);
+        MyReflection.getField("arr").check(double[][].class, MyReflection.MODIFIER_PRIVATE);
 
         MyReflection.separate();
         MyReflection.checkMethod("toString").check(String.class, false, false,
-                false, true, MODIFIER_PUBLIC);
+                false, false, MODIFIER_PUBLIC);
         MyReflection.separate();
 
         MyReflection.checkConstructor().check(MODIFIER_DEFAULT);
@@ -57,40 +55,67 @@ public class ReflectionMatrix {
         MyReflection.separate();
 
         MyReflection.checkMethod("sum",
-                new Class[]{MatrixWork.constructors.Matrix.class},
-                new Object[]{new MatrixWork.constructors.Matrix( new double[][] {
+                new Class[]{Matrix.class},
+                new Object[]{new Matrix( new double[][] {
                         {1.1, 0, 9},
                         {0.1, 1, 1},
                         {-0.1, -1, -1},
-                })},new Object[]{new MatrixWork.constructors.Matrix( new double[][] {
+                })},new Object[]{new Matrix( new double[][] {
                         {1.1, 2.0},
                         {0.1, 1},
                 })}).check(Matrix.class, false, false,
-                false, false, MODIFIER_DEFAULT);
+                false, false, MODIFIER_PRIVATE);
         MyReflection.separate();
         checkMethod("mult",
                 new Class[]{double.class},
                 new Object[]{0.5},new Object[]{1.5}).check(Matrix.class, false, false,
-                false, false, MODIFIER_PRIVATE);
+                false, false, MODIFIER_PROTECTED);
 
         MyReflection.separate();
         MyReflection.checkMethod("mult",
-                new Class[]{MatrixWork.constructors.Matrix.class},
-                new Object[]{new MatrixWork.constructors.Matrix( new double[][] {
+                new Class[]{Matrix.class},
+                new Object[]{new Matrix( new double[][] {
                         {1.1, 0},
                         {0.1, 1},
                         {1.1, 1},
-                })},new Object[]{new MatrixWork.constructors.Matrix( new double[][] {
+                })},new Object[]{new Matrix( new double[][] {
                         {1.1, 2.0},
                         {0.1, 1},
                         {0.1, 1},
                 })}).check(Matrix.class, false, false,
-                false, false, MODIFIER_PROTECTED);
-
+                false, false, MODIFIER_DEFAULT);
+        MyReflection.separate();
         MyReflection.checkMethod("getMinor",
                 new Class[] { int.class,int.class},
-                new Object[]{ 0,1},new Object[]{1,0}).check(Matrix.class, false, false,
+                new Object[]{ 0,1},new Object[]{1,0}).check(Matrix.class, false, true,
                 false, false, MODIFIER_PUBLIC);
+        MyReflection.separate();
+
+        MyReflection.checkMethod("det",
+                new Class[]{Matrix.class},
+                new Object[]{new Matrix( new double[][] {
+                        {1.1, 0,1},
+                        {0.1, 1,1},
+                        {1.1, 1,1},
+                })},new Object[]{new Matrix( new double[][] {
+                        {1.1, 2.0},
+                        {0.1, 1},
+                })}).check(double.class, true, false,
+                false, false, MODIFIER_PUBLIC);
+
+        MyReflection.separate();
+
+        MyReflection.checkMethod("inv",
+                new Class[]{Matrix.class},
+                new Object[]{new Matrix( new double[][] {
+                        {1.1, 0,1},
+                        {0.1, 1,1},
+                        {1.1, 1,1},
+                })},new Object[]{new Matrix( new double[][] {
+                        {1.1, 2.0},
+                        {0.1, 1},
+                })}).check(Matrix.class, true, true,
+                false, false, MODIFIER_DEFAULT);
 
 /*
         RetStruct retStruct = MyReflection.checkConstructor(new Class[]{double.class, double.class},
