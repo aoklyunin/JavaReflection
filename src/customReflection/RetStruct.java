@@ -51,7 +51,7 @@ public class RetStruct {
     public RetStruct(Method method) throws IllegalAccessException, InvocationTargetException {
         method.setAccessible(true);
         this.setModifiers(method.getModifiers());
-        this.isOverrided = method.getDeclaringClass().equals(obj1.getClass());
+        this.isOverrided = !method.getDeclaringClass().equals(obj1.getClass());
         this.paramType = method.getReturnType();
         this.objects[0] = method.invoke(obj1);
         this.objects[1] = method.invoke(obj2);

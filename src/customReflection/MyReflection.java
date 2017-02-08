@@ -21,6 +21,7 @@ public class MyReflection {
         Constructor constructor = null;
         try {
             constructor = className.getDeclaredConstructor();
+            constructor.setAccessible(true);
             obj1 = constructor.newInstance();
             obj2 = constructor.newInstance();
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
