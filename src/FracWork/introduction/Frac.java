@@ -34,17 +34,17 @@ public class Frac {
         denominator = 1;
     }
 
-    Frac sum(Frac f){
+    public Frac sum(Frac f){
         return new Frac(this.numerator*f.denominator+this.denominator*f.numerator,
                 this.denominator*f.denominator);
 
     }
 
-    Frac sum(int a){
+    public Frac sum(int a){
         return this.sum(new Frac(a));
     }
 
-    Frac mult(int a){
+    public Frac mult(int a){
         return new Frac(numerator*a,denominator);
     }
 
@@ -75,7 +75,7 @@ public class Frac {
         return gcd(this.denominator,this.numerator)>1;
     }
 
-    Frac doShort(){
+     Frac doShort(){
         int g = gcd(this.denominator,this.numerator);
         int k = this.numerator<0&&this.denominator<0?-1:1;
         return new Frac(this.numerator/g*k, this.denominator/g*k);

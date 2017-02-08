@@ -17,7 +17,7 @@ public class Triangle {
         this.c = c;
     }
 
-    private Triangle(double a) {
+    Triangle(double a) {
         this.a = a;
         this.b = a;
         this.c = a;

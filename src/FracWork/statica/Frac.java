@@ -24,7 +24,7 @@ public class Frac {
         this.denominator = 1;
     }
 
-    private Frac(int numerator, int denominator) {
+    Frac(int numerator, int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
     }
@@ -44,7 +44,7 @@ public class Frac {
         return this.sum(new Frac(a));
     }
 
-    private Frac mult(int a){
+    Frac mult(int a){
         return new Frac(numerator*a,denominator);
     }
 

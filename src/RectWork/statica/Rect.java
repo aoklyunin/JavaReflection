@@ -9,7 +9,7 @@ public class Rect {
         height = 1;
     }
 
-    private Rect(double d) {
+    Rect(double d) {
         width = d;
         height = d;
     }

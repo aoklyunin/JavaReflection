@@ -1,42 +1,44 @@
 package TriangleWork.statica;
 
+
+import java.util.Random;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-     /*   Scanner sc = new Scanner(System.in);
+
+        Scanner sc = new Scanner(System.in);
         Random r = new Random();
-        for (int i = 0; i < 4; i++) {
-            double a = r.nextDouble();
-            double b = r.nextDouble();
-            double c = r.nextDouble();
-            double d;
-            if (r.nextBoolean()) {
-                d = r.nextDouble();
-            } else {
-                d = c;
+        for (int i=0;i<10;i++) {
+            double a1 = r.nextDouble();
+            double a2 = r.nextDouble();
+            double b2 = r.nextDouble();
+            double a3 = r.nextDouble();
+            double b3 = r.nextDouble();
+            double c3 = r.nextDouble();
+            System.out.println(a1);
+            System.out.println(a2+" "+b2);
+            System.out.println(a3+" "+b3+" "+c3);
+            System.out.println("---------------");
+            Triangle triangle1 = new Triangle(a1);
+            Triangle triangle2 = new Triangle(a2,b2,b2);
+            Triangle triangle3 = new Triangle(a3,b3,c3);
+
+            Triangle [] triangles = new Triangle[]{triangle1,triangle2,triangle3};
+            double perimeter = 0;
+            double area = 0;
+            for (Triangle triangle:triangles){
+                if(triangle.checkTriangle()){
+                    area+=Triangle.getArea(triangle);
+                    perimeter+=Triangle.getPerimeter(triangle);
+                }
             }
-
-            System.out.println(a + " " + b + " " + c +" " + d);
+            System.out.println(perimeter+" "+area);
+            for (Triangle triangle:triangles){
+                System.out.println(triangle);
+            }
             System.out.println("---------------");
-            Rect rect1 = new Rect(a,b);
-            Rect rect2 = new Rect(c,d);
-
-            System.out.println(rect1.getPerimeter());
-            System.out.println(rect1.getArea());
-            System.out.println(rect2.getPerimeter());
-            System.out.println(rect2.getArea());
-
-            System.out.println(rect2.isSquare());
-
-            Rect rect3 = rect1.scale(2.5);
-            Rect rect4 = rect1.scale(0.2,0.5);
-            System.out.println(rect4);
-            // вывод
-            System.out.println(rect1);
-            System.out.println(rect2);
-            System.out.println(rect3);
-            System.out.println(rect4);
-            System.out.println("---------------");
-        }*/
+        }
     }
 }
 
