@@ -51,7 +51,7 @@ public static RetStruct checkDeclaringMethod(String methodName){
     }
 
     public static boolean checkImlementsInterface(Class c){
-        boolean flg = c.isAssignableFrom(obj1.getClass());
+        boolean flg = c.isAssignableFrom(interfaceClass);
         System.out.println(flg?"class implements "+c:"class don't interface "+c);
         return flg;
     }

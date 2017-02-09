@@ -59,7 +59,7 @@ public class MyReflection {
 
 
     public static boolean checkImlementsInterface(Class c){
-        boolean flg = c.isAssignableFrom(obj1.getClass());
+        boolean flg = c.isAssignableFrom(interfaceClass);
         System.out.println(flg?"class implements "+c:"class don't interface "+c);
         return flg;
     }
@@ -114,7 +114,7 @@ public class MyReflection {
     public static RetStruct getField(String fieldName, String yesString, String noString) {
         RetStruct retStruct = new RetStruct();
         try {
-            Class class_var = obj1.getClass();
+            Class class_var = interfaceClass;
             Field field = class_var.getDeclaredField(fieldName);
             retStruct = new RetStruct(field);
             if (!yesString.equals("")) System.out.println(yesString);
