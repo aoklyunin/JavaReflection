@@ -58,6 +58,15 @@ public class RetStruct {
         this.isNullable = false;
     }
 
+    public RetStruct(Method method, boolean flg) throws IllegalAccessException, InvocationTargetException {
+        method.setAccessible(true);
+        //this.setModifiers(method.getModifiers());
+        this.isOverrided = false;
+        this.paramType = method.getReturnType();
+        this.objects[0] = null;
+        this.objects[1] = null;
+        this.isNullable = false;
+    }
     public RetStruct(Method method, Object[] arg_arr, Object[] arg_arr2) throws IllegalAccessException, InvocationTargetException {
         method.setAccessible(true);
         this.setModifiers(method.getModifiers());
@@ -66,6 +75,7 @@ public class RetStruct {
         this.objects[0] = method.invoke(obj1, arg_arr);
         this.objects[1] = method.invoke(obj2, arg_arr2);
         this.isNullable = false;
+
     }
 
     public RetStruct(Constructor constructor) throws IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -181,9 +191,9 @@ public class RetStruct {
 
     public String getObjects() {
         String s = "";
-        if (!objects[0].getClass().isArray())
+        if (objects[0]!=null&&objects[0].getClass().isArray()) return "";
         for (Object o : objects)
-            s += o==null?"null":o.toString() + " ";
+            s += o==null?"null ":o.toString() + " ";
         return s;
     }
 
