@@ -64,6 +64,7 @@ public class MyReflection {
         return flg;
     }
     public static void setClass(Class className) {
+        interfaceClass = className;
         Constructor constructor = null;
         try {
             constructor = className.getDeclaredConstructor();

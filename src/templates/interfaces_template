@@ -56,8 +56,10 @@ public static RetStruct checkDeclaringMethod(String methodName){
         return flg;
     }
     public static void setClass(Class className) {
+     interfaceClass = className;
         Constructor constructor = null;
         try {
+
             constructor = className.getDeclaredConstructor();
             constructor.setAccessible(true);
             obj1 = constructor.newInstance();
